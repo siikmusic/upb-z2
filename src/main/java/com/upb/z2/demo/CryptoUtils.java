@@ -11,29 +11,29 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
 
 public class CryptoUtils
 {
 	private static final String ALGORITHM="AES";
 	private static final String TRANSFORMATION="AES";
 	
-	public static void encrypt(String key, File inputFile, File outputFile) throws Exception 
+	public static void encrypt(Key key, File inputFile, File outputFile) throws Exception
 	{
 		doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile);
 	}
 	
-	public static void decrypt(String key, File inputFile, File outputFile) throws Exception
+	public static void decrypt(Key key, File  inputFile, File outputFile) throws Exception
 	{
+//		Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
 		doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
 	}
 	
-	private static void doCrypto(int cipherMode, String key, File inputFile, File outputFile) throws Exception
+	private static void doCrypto(int cipherMode, Key key, File inputFile, File outputFile) throws Exception
 	{
 		try{
-			Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
+//			Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
 			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-			cipher.init(cipherMode, secretKey);
+			cipher.init(cipherMode, key);
 			FileInputStream inputStream = new FileInputStream(inputFile);
 			byte[] inputBytes = new byte[(int)inputFile.length()];
 			inputStream.read(inputBytes);
