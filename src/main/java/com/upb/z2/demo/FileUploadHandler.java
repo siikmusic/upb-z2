@@ -37,6 +37,7 @@ public class FileUploadHandler extends HttpServlet
 		if(ServletFileUpload.isMultipartContent(request))
 		{
 			try {
+//				long start = System.nanoTime();
 				List<FileItem>multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 				File temp = null;
 				File encrypted = null;
@@ -88,6 +89,11 @@ public class FileUploadHandler extends HttpServlet
 					encrypted = new File(UPLOADDIRECTORY + File.separator + name);
 					CryptoUtils.decrypt(originalKey,temp,encrypted);
 				}
+
+//				long finish = System.nanoTime();
+//				long timeElapsed = finish - start;
+//				double elapsedTimeInSecond = (double) timeElapsed / 1_000_000_000;
+//				System.out.println(elapsedTimeInSecond);
 
 				//File uploaded successfully
 				response.setContentType("text/plain");

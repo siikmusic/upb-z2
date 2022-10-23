@@ -14,7 +14,7 @@
         <input type="radio" id="decrypt" name="mode" value="decrypt">
         <label for="decrypt">Decrypt</label><br><br>
 
-        <input type="file" name="file"/>Key :
+        <input type="file" name="file"/>Key (only for decryption):
         <input type="text" id="fname" name="fname"><br><br>
         <input type="submit" value="upload"/>
     </form>

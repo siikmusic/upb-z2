@@ -7,15 +7,18 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.AlgorithmParameterSpec;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
 
 public class CryptoUtils
 {
 	private static final String ALGORITHM="AES";
-	private static final String TRANSFORMATION="AES";
+	private static final String TRANSFORMATION="AES/CBC/PKCS5Padding";
+	private static final String ENCRYPTION_IV = "4e5Wa71fYoT7MFEX";
 	
 	public static void encrypt(Key key, File inputFile, File outputFile) throws Exception
 	{
@@ -33,7 +36,8 @@ public class CryptoUtils
 		try{
 //			Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
 			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-			cipher.init(cipherMode, key);
+			AlgorithmParameterSpec iv = new IvParameterSpec(ENCRYPTION_IV.getBytes("UTF-8"));
+			cipher.init(cipherMode, key, iv);
 			FileInputStream inputStream = new FileInputStream(inputFile);
 			byte[] inputBytes = new byte[(int)inputFile.length()];
 			inputStream.read(inputBytes);
